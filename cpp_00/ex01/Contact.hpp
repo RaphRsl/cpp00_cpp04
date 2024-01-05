@@ -1,5 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 17:17:34 by rsl               #+#    #+#             */
+/*   Updated: 2024/01/05 17:30:58 by rsl              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONTACT_HPP
 # define CONTACT_HPP
+
+#include <iostream>
+#include <iomanip>
 
 class Contact
 {
@@ -8,16 +23,10 @@ class Contact
 	Contact(void);
 	~Contact(void);
 
-	std::string	getFirstName(void) const;
-	std::string	getLastName(void) const;
-	std::string	getNickname(void) const;
-	std::string	getPhoneNumber(void) const;
-	std::string	getDarkestSecret(void) const;
-	void		setFirstName(std::string str);
-	void		setLastName(std::string str);
-	void		setNickname(std::string str);
-	void		setPhoneNumber(std::string str);
-	void		setDarkestSecret(std::string str);
+	void	initContact(void);
+	void	setIndexContact(int indexContact);
+	void	printOverview(int indexContact) const;
+	void	printFullContact(void) const;
 
 	private:
 
@@ -26,6 +35,13 @@ class Contact
 	std::string	_nickname;
 	std::string _phoneNumber;
 	std::string _darkestSecret;
+	int			_indexContact;
+
+	std::string	_askGetInput(std::string ask, int type) const;
+	bool		_emptyOrWhiteSpace(std::string str) const;
+	bool		_unvalidAlpha(std::string str) const;
+	bool		_unvalidPhoneNumber(std::string str) const;
+	std::string	_truncateAndFill(std::string str) const;
 
 };
 

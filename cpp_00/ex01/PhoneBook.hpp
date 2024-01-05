@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 17:18:05 by rsl               #+#    #+#             */
+/*   Updated: 2024/01/05 17:18:19 by rsl              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
 #include "Contact.hpp"
-
 
 class PhoneBook
 {
@@ -10,15 +21,15 @@ class PhoneBook
 
 	PhoneBook(void);
 	~PhoneBook(void);
-	void	addContact(void);
-	void	searchContact(void);
-	void	printContact(Contact contact) const;
-	Contact	getContact(int index) const;
+	void	starter(void) const;
+	void	addCommand(void);
+	void	searchCommand(void)const;
+	void	printContacts(void) const;
 	
 	private:
 
 	Contact		_contacts[8];
-	int			_indexContact;
+	int			_whichContact(void) const;
 };
 
 #endif

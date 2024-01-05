@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/05 17:17:27 by rsl               #+#    #+#             */
+/*   Updated: 2024/01/05 17:56:16 by rsl              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Contact.hpp"
 
 Contact::Contact(void)
@@ -10,52 +22,109 @@ Contact::~Contact(void)
 	return ;
 }
 
-void	Contact::setFirstName(std::string firstName)
+void	Contact::setIndexContact(int indexContact)
 {
-	this->_firstName = firstName;
+	this->_indexContact = indexContact;
+	return ;
 }
 
-void	Contact::setLastName(std::string lastName)
+bool	Contact::_emptyOrWhiteSpace(std::string str) const
 {
-	this->_lastName = lastName;
+	if (str.empty())
+		return (true);
+	for (size_t i = 0; i < str.length(); i++)
+		if (!std::isspace(str[i]))
+			return (false);
+	return (true);
 }
 
-void	Contact::setNickname(std::string nickname)
+bool	Contact::_unvalidAlpha(std::string str) const
 {
-	this->_nickname = nickname;
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if ((str[i] < 'A' || str[i] > 'Z') && (str[i] < 'a' || str[i] > 'z') && !std::isspace(str[i]))
+			return (true);
+	}
+	return (false);
 }
 
-void	Contact::setPhoneNumber(std::string phoneNumber)
+bool	Contact::_unvalidPhoneNumber(std::string str) const
 {
-	this->_phoneNumber = phoneNumber;
+	if (str.length() != 10)
+		return (true);
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (true);
+	}
+	return (false);
 }
 
-void	Contact::setDarkestSecret(std::string darkestSecret)
+std::string	Contact::_askGetInput(std::string ask, int type) const
 {
-	this->_darkestSecret = darkestSecret;
+	std::string	input = "";
+	bool		isValid = false;
+
+	std::cout << ask << std::flush;
+	while (!isValid)
+	{
+		std::getline(std::cin, input);
+		if (type == 1 && (this->_emptyOrWhiteSpace(input) || this->_unvalidAlpha(input)))
+			std::cout << "[Please enter a valid alphabetical input] " << ask << std::flush;
+		else if (type == 2 && (this->_emptyOrWhiteSpace(input) || this->_unvalidPhoneNumber(input)))
+			std::cout << "[Please enter a valid numerical input] " << ask << std::flush;
+		else if (type == 3 && this->_emptyOrWhiteSpace(input))
+			std::cout << "[Please enter a valid input] " << ask << std::flush;
+		else
+			isValid = true;
+	}
+	return (input);
 }
 
-std::string	Contact::getFirstName(void) const
+void	Contact::initContact(void)
 {
-	return (this->_firstName);
+	this->_firstName = this->_askGetInput("First name: ", 1);
+	this->_lastName = this->_askGetInput("Last name: ", 1);
+	this->_nickname = this->_askGetInput("Nickname: ", 1);
+	this->_phoneNumber = this->_askGetInput("Phone number: ", 2);
+	this->_darkestSecret = this->_askGetInput("Darkest secret: ", 3);
+	std::cout << "Contact successfully added!" << std::endl;
+	return ;
 }
 
-std::string	Contact::getLastName(void) const
+std::string	Contact::_truncateAndFill(std::string str) const
 {
-	return (this->_lastName);
+	if (str.length() > 10)
+		return (str.substr(0, 9) + ".");
+	while (str.length() < 10)
+		str = " " + str;
+	return (str);
 }
 
-std::string	Contact::getNickname(void) const
+void	Contact::printOverview(int indexContact) const
 {
-	return (this->_nickname);
+	if (this->_emptyOrWhiteSpace(this->_firstName) && this->_emptyOrWhiteSpace(this->_lastName)\
+	&& this->_emptyOrWhiteSpace(this->_nickname))
+		return ;
+	std::cout << "|" << this->_truncateAndFill(std::to_string(indexContact)) \
+	<< "|" << this->_truncateAndFill(this->_firstName) << "|" \
+	<< this->_truncateAndFill(this->_lastName) << "|" \
+	<< this->_truncateAndFill(this->_nickname) << "|" << std::endl;
+	return ;
 }
 
-std::string	Contact::getPhoneNumber(void) const
+void	Contact::printFullContact(void) const
 {
-	return (this->_phoneNumber);
+	std::cout << std::endl;
+	if (this->_emptyOrWhiteSpace(this->_firstName) && this->_emptyOrWhiteSpace(this->_lastName)\
+	&& this->_emptyOrWhiteSpace(this->_nickname) && this->_emptyOrWhiteSpace(this->_phoneNumber)\
+	&& this->_emptyOrWhiteSpace(this->_darkestSecret))
+		return ;
+	std::cout << "First name: " << this->_firstName << std::endl;
+	std::cout << "Last name: " << this->_lastName << std::endl;
+	std::cout << "Nickname: " << this->_nickname << std::endl;
+	std::cout << "Phone number: " << this->_phoneNumber << std::endl;
+	std::cout << "Darkest secret: " << this->_darkestSecret << std::endl;
+	return ;
 }
 
-std::string	Contact::getDarkestSecret(void) const
-{
-	return (this->_darkestSecret);
-}
