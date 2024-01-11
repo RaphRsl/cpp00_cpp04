@@ -6,7 +6,7 @@
 /*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:17:39 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/05 17:55:30 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/11 21:14:23 by rsl              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	main(void)
 		std::cout << "Command > " << std::flush;
 		std::getline(std::cin, userInput);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }

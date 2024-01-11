@@ -6,7 +6,7 @@
 /*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:17:27 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/05 17:56:16 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/11 21:32:34 by rsl              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,19 @@ std::string	Contact::_truncateAndFill(std::string str) const
 	return (str);
 }
 
+std::string intToString(int nb)
+{
+	std::ostringstream oss;
+	oss << nb;
+	return oss.str();
+}
+
 void	Contact::printOverview(int indexContact) const
 {
 	if (this->_emptyOrWhiteSpace(this->_firstName) && this->_emptyOrWhiteSpace(this->_lastName)\
 	&& this->_emptyOrWhiteSpace(this->_nickname))
 		return ;
-	std::cout << "|" << this->_truncateAndFill(std::to_string(indexContact)) \
+	std::cout << "|" << this->_truncateAndFill(intToString(indexContact)) \
 	<< "|" << this->_truncateAndFill(this->_firstName) << "|" \
 	<< this->_truncateAndFill(this->_lastName) << "|" \
 	<< this->_truncateAndFill(this->_nickname) << "|" << std::endl;

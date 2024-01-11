@@ -6,7 +6,7 @@
 /*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:17:34 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/05 17:30:58 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/11 21:30:47 by rsl              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 
 class Contact
 {
