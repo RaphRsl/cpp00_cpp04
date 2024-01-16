@@ -6,7 +6,7 @@
 #    By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/05 17:16:36 by rsl               #+#    #+#              #
-#    Updated: 2024/01/11 21:53:04 by rsl              ###   ########.fr        #
+#    Updated: 2024/01/16 13:51:12 by rsl              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,15 @@ RESET_FLASH		=	\e[0m
 
 ########################## Variables ##########################
 
-NAME		= PhoneBook____________________________________________________________TO_CHANGE
+NAME		= FirstDay
 
 OBJDIR = .objFiles
 
-FILES		= main Contact PhoneBook____________________________________________________________TO_CHANGE
+FILES		= Account tests
 
 SRC			= $(FILES:=.cpp)
 OBJ			= $(addprefix $(OBJDIR)/, $(FILES:=.o))
-HEADER		= Contact.hpp PhoneBook.hpp____________________________________________________________TO_CHANGE
+HEADER		= Account.hpp
 
 CC			= c++
 FLAGS		= -std=c++98 -Wall -Wextra -Werror
