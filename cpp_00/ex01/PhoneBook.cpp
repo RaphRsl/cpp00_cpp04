@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:17:56 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/24 12:32:37 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/24 14:24:26 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	PhoneBook::addCommand(void)
 		{
 			std::cout << "Please enter a valid answer (y/n) => " << std::flush;
 			std::getline(std::cin, userInput);
+			if (std::cin.eof())
+			{
+				std::cout << std::endl;
+				return ;
+			}
 		}
 		if (userInput == "n")
 			keepGoing = false;
@@ -62,6 +67,8 @@ void	PhoneBook::addCommand(void)
 void	PhoneBook::searchCommand(void) const
 {
 	int	indexContact = this->_whichContact();
+	if (indexContact == -1)
+		return ;
 	this->_contacts[indexContact].printFullContact();
 	return ;
 }
@@ -94,6 +101,11 @@ int		PhoneBook::_whichContact(void) const
 	while (!isValid)
 	{
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			return (-1);
+		}
 		if (input.length() == 1 && input[0] >= '0' && input[0] <= '7')
 		{
 			indexContact = input[0] - '0';

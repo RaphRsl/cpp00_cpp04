@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Account.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 13:51:57 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/16 13:58:15 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/16 14:45:51 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "Account.hpp"
 #include <iostream>
 #include <iomanip>
+#include <ctime>
 
 int	Account::_nbAccounts = 0;
 int	Account::_totalNbWithdrawals = 0;
@@ -65,8 +66,6 @@ int	Account::checkAmount(void) const
 {
 	return (this->_amount);
 }
-
-#include <ctime>
 
 void Account::_displayTimestamp(void)
 {

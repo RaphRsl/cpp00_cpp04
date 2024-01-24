@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:17:27 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/11 21:32:34 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/24 14:22:04 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,14 @@ std::string	Contact::_askGetInput(std::string ask, int type) const
 	bool		isValid = false;
 
 	std::cout << ask << std::flush;
-	while (!isValid)
+	while (!isValid && !std::cin.eof())
 	{
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			return ("");
+		}
 		if (type == 1 && (this->_emptyOrWhiteSpace(input) || this->_unvalidAlpha(input)))
 			std::cout << "[Please enter a valid alphabetical input] " << ask << std::flush;
 		else if (type == 2 && (this->_emptyOrWhiteSpace(input) || this->_unvalidPhoneNumber(input)))
@@ -84,10 +89,20 @@ std::string	Contact::_askGetInput(std::string ask, int type) const
 void	Contact::initContact(void)
 {
 	this->_firstName = this->_askGetInput("First name: ", 1);
+	if (this->_firstName.empty())
+		return ;
 	this->_lastName = this->_askGetInput("Last name: ", 1);
+	if (this->_lastName.empty())
+		return ;
 	this->_nickname = this->_askGetInput("Nickname: ", 1);
+	if (this->_nickname.empty())
+		return ;
 	this->_phoneNumber = this->_askGetInput("Phone number: ", 2);
+	if (this->_phoneNumber.empty())
+		return ;
 	this->_darkestSecret = this->_askGetInput("Darkest secret: ", 3);
+	if (this->_darkestSecret.empty())
+		return ;
 	std::cout << "Contact successfully added!" << std::endl;
 	return ;
 }
