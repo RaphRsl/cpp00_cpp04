@@ -6,7 +6,7 @@
 /*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:17:39 by rsl               #+#    #+#             */
-/*   Updated: 2024/01/11 21:14:23 by rsl              ###   ########.fr       */
+/*   Updated: 2024/01/24 12:22:27 by rsl              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@ int	main(void)
 	phoneBook.starter();
 	while (userInput != "EXIT")
 	{
-		if (userInput == "ADD")
+		if (std::cin.eof())
+		{
+			std::cin.clear();
+			std::cin.ignore();
+			std::cout << std::endl;
+			return (0);
+		}
+		else if (userInput == "ADD")
 			phoneBook.addCommand();
 		else if (userInput == "SEARCH")
 			phoneBook.searchCommand();
