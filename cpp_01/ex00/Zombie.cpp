@@ -1,6 +1,6 @@
 #include "Zombie.hpp"
 
-Zombie::Zombie()
+Zombie::Zombie(void)
 {
 	this->_name = "nameByDefault";
 }
