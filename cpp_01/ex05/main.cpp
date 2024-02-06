@@ -1,14 +1,13 @@
 #include "Harl.hpp"
 
-int	main(int ac, char **av)
+int	main(void)
 {
 	Harl	harl;
 
-	if (ac != 2)
-	{
-		std::cout << "Wrong number of arguments.\nExpected format: ./harl [level].\n Possible levels are [DEBUG]/[INFO]/[WARNING]/[ERROR]." << std::endl;
-		return (1);
-	}
-	harl.complain(av[1]);
+	harl.complain("INFO");
+	harl.complain("DEBUG");
+	harl.complain("WARNING");
+	harl.complain("ERROR");
+	
 	return (0);
 }
