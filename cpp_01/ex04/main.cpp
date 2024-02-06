@@ -33,13 +33,14 @@ int	main(int ac, char **av)
 	s1 = av[2];
 	s2 = av[3];
 
-	inFile.open(fileName, std::ios::in);
+	inFile.open(fileName.c_str(), std::ios::in);
 	if (!inFile.is_open())
 	{
 		std::cout << "Error opening " << fileName << "." << std::endl;
 		return (1);
 	}
-	outFile.open(fileName + ".replace", std::ios::out);
+	fileName = fileName + ".replace";
+	outFile.open(fileName.c_str(), std::ios::out);
 	if (!outFile.is_open())
 	{
 		std::cout << "Error creating " << fileName << ".replace." << std::endl;
