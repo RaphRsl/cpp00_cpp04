@@ -1,12 +1,5 @@
 #include "HumanB.hpp"
 
-// HumanB::HumanB(void)
-// {
-// 	this->_name = "defaultName";
-// 	this->_weapon = NULL;
-// 	return ;
-// }
-
 HumanB::HumanB(std::string name)
 {
 	this->_name = name;

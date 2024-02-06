@@ -21,7 +21,7 @@ int main(void)
         jim.attack();
     }
 
-    std::cout << "My test :\n" << std::endl;
+    std::cout << "\nMy test :\n" << std::endl;
 
     Weapon axe = Weapon("huge gamer keyboard");
     HumanA gamer("Gamer", axe);

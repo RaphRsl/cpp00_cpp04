@@ -13,8 +13,6 @@ int	main(int ac, char **av)
 	}
 
 	detectedLevel = levelDetector(av[1]);
-	// if (detectedLevel == -1)
-	// 	std::cout << "Invalid level. Expected level are [DEBUG]/[INFO]/[WARNING]/[ERROR]." << std::endl;
 	switch (detectedLevel)
 	{
 		case 0:

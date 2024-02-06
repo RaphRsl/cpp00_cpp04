@@ -1,17 +1,7 @@
 #include "HumanA.hpp"
 
-// HumanA::HumanA(void)
-// {
-// 	this->_name = "defaultName";
-// 	this->_weapon = "defaultWeapon";
-// 	return ;
-// }
-
-// HumanA::HumanA(std::string name, Weapon &weapon)
 HumanA::HumanA(std::string name, Weapon &weapon) : _name(name), _weapon(weapon)
 {
-	// this->_name = name;
-	// this->_weapon = weapon;
 	return ;
 }
 
