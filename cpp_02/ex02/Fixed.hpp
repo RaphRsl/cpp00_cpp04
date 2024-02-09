@@ -6,13 +6,14 @@
 /*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:23:16 by rroussel          #+#    #+#             */
-/*   Updated: 2024/02/09 11:33:20 by rroussel         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:03:18 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIXED_HPP
 # define FIXED_HPP
-# define CALL_LOG 0
+
+# define VERBOSE_LOG 0
 # include <iostream>
 # include <iomanip>
 # include <cmath>

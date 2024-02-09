@@ -6,7 +6,7 @@
 /*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:23:07 by rroussel          #+#    #+#             */
-/*   Updated: 2024/02/09 11:33:22 by rroussel         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:14:17 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,39 @@
 
 Fixed::Fixed(void) : _fixedPoint(0)
 {
-	if (CALL_LOG)
-		std::cout << "Default constructor called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Default constructor]" << std::endl;
 }
 
 Fixed::Fixed(const Fixed &fixed)
 {
-	if (CALL_LOG)
-		std::cout << "Copy constructor called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Copy constructor]" << std::endl;
 	*this = fixed;
 }
 
 Fixed::Fixed(const int n) : _fixedPoint(n << _numberFracBits)
 {
-	if (CALL_LOG)
-		std::cout << "Int constructor called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Int constructor]" << std::endl;
 }
 
 Fixed::Fixed(const float f) : _fixedPoint((int)roundf(f * (1 << _numberFracBits)))
 {
-	if (CALL_LOG)
-		std::cout << "Float constructor called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Float constructor]" << std::endl;
 }
 
 Fixed::~Fixed()
 {
-	if (CALL_LOG)
-		std::cout << "Destructor called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Destructor]" << std::endl;
 }
 
 Fixed	&Fixed::operator=(const Fixed &fixed)
 {
-	if (CALL_LOG)
-		std::cout << "Copy assignment operator called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Copy assignment operator]" << std::endl;
 	if (this != &fixed)
 		this->_fixedPoint = fixed.getRawBits();
 	return (*this);
@@ -54,15 +54,15 @@ Fixed	&Fixed::operator=(const Fixed &fixed)
 
 int	Fixed::getRawBits(void) const
 {
-	if (CALL_LOG)
-		std::cout << "getRawBits member function called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[getRawBits function]" << std::endl;
 	return (this->_fixedPoint);
 }
 
 void	Fixed::setRawBits(const int raw)
 {
-	if (CALL_LOG)
-		std::cout << "setRawBits member function called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[setRawBits function]" << std::endl;
 	this->_fixedPoint = raw;
 }
 
@@ -82,7 +82,7 @@ std::ostream	&operator<<(std::ostream &o, const Fixed &fixed)
 	return (o);
 }
 
-// COMPARISON OPERATORS //
+// 6 COMPARISON OPERATORS //
 
 bool	Fixed::operator>(const Fixed &fixed) const
 {
@@ -114,7 +114,7 @@ bool	Fixed::operator!=(const Fixed &fixed) const
 	return (this->_fixedPoint != fixed._fixedPoint);
 }
 
-// ARITHMETIC OPERATORS //
+// 4 ARITHMETIC OPERATORS //
 
 Fixed	Fixed::operator+(const Fixed &fixed) const
 {
@@ -136,7 +136,7 @@ Fixed	Fixed::operator/(const Fixed &fixed) const
 	return (Fixed(this->toFloat() / fixed.toFloat()));
 }
 
-// INCREMENT OPERATORS //
+// 4 INCREMENT/DECREMENT OPERATORS //
 
 Fixed	&Fixed::operator++(void)
 {
@@ -184,10 +184,12 @@ Fixed	Fixed::operator--(int n)
 	return (temp);
 }
 
+// 4 STATIC FUNCTIONS //
+
 Fixed	&Fixed::min(Fixed &fixed1, Fixed &fixed2)
 {
-	if (CALL_LOG)
-		std::cout << "Static min function called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Static min function]" << std::endl;
 	if (fixed1 <= fixed2)
 		return (fixed1);
 	return (fixed2);
@@ -195,8 +197,8 @@ Fixed	&Fixed::min(Fixed &fixed1, Fixed &fixed2)
 
 Fixed	&Fixed::max(Fixed &fixed1, Fixed &fixed2)
 {
-	if (CALL_LOG)
-		std::cout << "Static max function called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Static max function]" << std::endl;
 	if (fixed1 >= fixed2)
 		return (fixed1);
 	return (fixed2);
@@ -204,8 +206,8 @@ Fixed	&Fixed::max(Fixed &fixed1, Fixed &fixed2)
 
 const Fixed	&Fixed::min(const Fixed &fixed1, const Fixed &fixed2)
 {
-	if (CALL_LOG)
-		std::cout << "Static const min overload called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Static const min function]" << std::endl;
 	if (fixed1 <= fixed2)
 		return (fixed1);
 	return (fixed2);
@@ -213,8 +215,8 @@ const Fixed	&Fixed::min(const Fixed &fixed1, const Fixed &fixed2)
 
 const Fixed	&Fixed::max(const Fixed &fixed1, const Fixed &fixed2)
 {
-	if (CALL_LOG)
-		std::cout << "Static const max overload called" << std::endl;
+	if (VERBOSE_LOG)
+		std::cout << "[Static const max function]" << std::endl;
 	if (fixed1 >= fixed2)
 		return (fixed1);
 	return (fixed2);
