@@ -6,7 +6,7 @@
 /*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:23:16 by rroussel          #+#    #+#             */
-/*   Updated: 2024/02/06 16:23:18 by rroussel         ###   ########.fr       */
+/*   Updated: 2024/02/09 11:33:20 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 class Fixed
 {
 	private:
-		int	_pf;
-		static const int _nbFrac = 8;
+		int	_fixedPoint;
+		static const int _numberFracBits = 8;
 
 	public:
 		Fixed(void);

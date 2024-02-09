@@ -6,13 +6,13 @@
 /*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:23:07 by rroussel          #+#    #+#             */
-/*   Updated: 2024/02/06 16:23:09 by rroussel         ###   ########.fr       */
+/*   Updated: 2024/02/09 11:33:22 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed(void) : _pf(0)
+Fixed::Fixed(void) : _fixedPoint(0)
 {
 	if (CALL_LOG)
 		std::cout << "Default constructor called" << std::endl;
@@ -25,13 +25,13 @@ Fixed::Fixed(const Fixed &fixed)
 	*this = fixed;
 }
 
-Fixed::Fixed(const int n) : _pf(n << _nbFrac)
+Fixed::Fixed(const int n) : _fixedPoint(n << _numberFracBits)
 {
 	if (CALL_LOG)
 		std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float f) : _pf((int)roundf(f * (1 << _nbFrac)))
+Fixed::Fixed(const float f) : _fixedPoint((int)roundf(f * (1 << _numberFracBits)))
 {
 	if (CALL_LOG)
 		std::cout << "Float constructor called" << std::endl;
@@ -48,7 +48,7 @@ Fixed	&Fixed::operator=(const Fixed &fixed)
 	if (CALL_LOG)
 		std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &fixed)
-		this->_pf = fixed.getRawBits();
+		this->_fixedPoint = fixed.getRawBits();
 	return (*this);
 }
 
@@ -56,24 +56,24 @@ int	Fixed::getRawBits(void) const
 {
 	if (CALL_LOG)
 		std::cout << "getRawBits member function called" << std::endl;
-	return (this->_pf);
+	return (this->_fixedPoint);
 }
 
 void	Fixed::setRawBits(const int raw)
 {
 	if (CALL_LOG)
 		std::cout << "setRawBits member function called" << std::endl;
-	this->_pf = raw;
+	this->_fixedPoint = raw;
 }
 
 float	Fixed::toFloat(void) const
 {
-	return ((float)_pf / (1 << _nbFrac));
+	return ((float)_fixedPoint / (1 << _numberFracBits));
 }
 
 int	Fixed::toInt(void) const
 {
-	return ((int)(roundf((float)_pf / (1 << _nbFrac))));
+	return ((int)(roundf((float)_fixedPoint / (1 << _numberFracBits))));
 }
 
 std::ostream	&operator<<(std::ostream &o, const Fixed &fixed)
@@ -86,32 +86,32 @@ std::ostream	&operator<<(std::ostream &o, const Fixed &fixed)
 
 bool	Fixed::operator>(const Fixed &fixed) const
 {
-	return (this->_pf > fixed._pf);
+	return (this->_fixedPoint > fixed._fixedPoint);
 }
 
 bool	Fixed::operator<(const Fixed &fixed) const
 {
-	return (this->_pf < fixed._pf);
+	return (this->_fixedPoint < fixed._fixedPoint);
 }
 
 bool	Fixed::operator>=(const Fixed &fixed) const
 {
-	return (this->_pf >= fixed._pf);
+	return (this->_fixedPoint >= fixed._fixedPoint);
 }
 
 bool	Fixed::operator<=(const Fixed &fixed) const
 {
-	return (this->_pf <= fixed._pf);
+	return (this->_fixedPoint <= fixed._fixedPoint);
 }
 
 bool	Fixed::operator==(const Fixed &fixed) const
 {
-	return (this->_pf == fixed._pf);
+	return (this->_fixedPoint == fixed._fixedPoint);
 }
 
 bool	Fixed::operator!=(const Fixed &fixed) const
 {
-	return (this->_pf != fixed._pf);
+	return (this->_fixedPoint != fixed._fixedPoint);
 }
 
 // ARITHMETIC OPERATORS //
@@ -140,13 +140,13 @@ Fixed	Fixed::operator/(const Fixed &fixed) const
 
 Fixed	&Fixed::operator++(void)
 {
-	++(this->_pf);
+	++(this->_fixedPoint);
 	return (*this);
 }
 
 Fixed	&Fixed::operator--(void)
 {
-	--(this->_pf);
+	--(this->_fixedPoint);
 	return (*this);
 }
 
