@@ -6,7 +6,7 @@
 /*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:01:54 by rroussel          #+#    #+#             */
-/*   Updated: 2024/02/13 17:45:44 by rroussel         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:00:28 by rroussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int	main(void)
 	diamondTrap2.stats();
 	std::cout << std::endl;
 
-	std::cout << "===== WHO AM I =====" << std::endl;
+	std::cout << "===== WHO AM I & OTHERS =====" << std::endl;
+	diamondTrap1.guardGate();
+	diamondTrap1.highFivesGuys();
 	diamondTrap1.whoAmI();
 	std::cout << std::endl;
 
