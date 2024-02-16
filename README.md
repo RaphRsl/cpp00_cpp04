@@ -7,7 +7,7 @@ files manipulation in cpp
 https://www.mygreatlearning.com/blog/file-handling-in-cpp/
 
 
-CPP03 - ex03, Diamond
+=========== CPP03 - ex03, Diamond
 
 A(1) : energy = 10
 B : energy(A(1)) = 100
@@ -37,3 +37,7 @@ D : energy = C ou B
 	A
 B		C
 	D
+
+=========== CPP04 - ex02, shallo/deep copy
+
+https://www.geeksforgeeks.org/shallow-copy-and-deep-copy-in-c/
