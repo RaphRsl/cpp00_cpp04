@@ -38,6 +38,11 @@ D : energy = C ou B
 B		C
 	D
 
-=========== CPP04 - ex02, shallo/deep copy
+=========== CPP04 - ex01, shallo/deep copy
 
 https://www.geeksforgeeks.org/shallow-copy-and-deep-copy-in-c/
+
+
+=========== CPP04 - ex02, base class non instantiable
+
+https://www.appsloveworld.com/cplus/100/107/protected-constructor-to-make-base-class-not-instantiable
