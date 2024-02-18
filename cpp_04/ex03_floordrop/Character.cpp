@@ -35,6 +35,12 @@ Character::~Character()
 		if (_inventory[i])
 			delete _inventory[i];
 	}
+	for (int j = 0; j < _maxFloorDrop; j++)
+	{
+		if (_floorDrop[j])
+			// delete _floorDrop[j];
+			_floorDrop[j] = NULL;
+	}
 }
 
 Character	&Character::operator=(const Character &character)
@@ -82,6 +88,24 @@ void	Character::unequip(int idx)
 	if (idx >= 0 && idx < _inventorySize)
 	{
 		std::cout << overlayPrint(_name, MAC_DROP, ORANGE) << "unequips " << _inventory[idx]->getType() << " from slot " << idx << std::endl;
+		int i = 0;
+		while (_floorDrop[i] != NULL)
+		{
+			i++;
+			if (i > _maxFloorDrop)
+				i = 0;
+		}
+		_floorDrop[i] = _inventory[idx];
+		if (i == _maxFloorDrop)
+		{
+			delete _floorDrop[0];
+			_floorDrop[0] = NULL;
+		}
+		else
+		{
+			delete _floorDrop[i + 1];
+			_floorDrop[i + 1] = NULL;
+		}
 		_inventory[idx] = NULL; //gerer le drop sur le floor
 		// delete _inventory[i]; //tried to change next line
 	}
