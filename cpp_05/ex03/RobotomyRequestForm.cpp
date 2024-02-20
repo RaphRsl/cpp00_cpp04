@@ -29,7 +29,6 @@ RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &r
 	return (*this);
 }
 
-//surppress randomness ? + ctime include then
 void	RobotomyRequestForm::execute(const Bureaucrat &bureaucrat) const
 {
 	int	robotomized;

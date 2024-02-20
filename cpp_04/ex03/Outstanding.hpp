@@ -6,12 +6,12 @@
 
 /* === COLORS === */
 # define RED "\x1B[31m"
+# define ORANGE "\x1B[33m"
 # define GREEN "\x1B[32m"
-# define ORANGE "\x1B[34m"
 # define PURPLE "\x1B[35m"
 # define BLUE "\x1B[36m"
 # define LIGHTGREY "\x1B[37m"
-# define BROWN "\x1B[33m"
+# define BROWN "\x1B[0;33m"
 # define END "\033[0m"
 
 /* ===== MACROS ===== */

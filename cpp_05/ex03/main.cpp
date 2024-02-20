@@ -1,15 +1,13 @@
 #include "Bureaucrat.hpp"
 #include "Intern.hpp"
-#include <iomanip> // USE ?
 
-int	main(void) // CHECK AND CLEAN MAIN IF NEEDED.. add a wrong 0,5 form ?
+int	main(void)
 {
-	srand(time(NULL)); //USE ?
-
 	std::cout << "===== SUBJECT TEST =====" << std::endl;
 	Intern  someRandomIntern;
     AForm*   rrf;
     rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+	delete rrf;
 	std::cout << std::endl;
 
 	std::cout << "===== MORE TESTS =====" << std::endl;

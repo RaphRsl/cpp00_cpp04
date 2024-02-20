@@ -1,50 +1,59 @@
-
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include <iomanip> //USE ?
+#include <iomanip>
 
-int	main(void) //DO AGAIN MAIN
+int	main(void)
 {
-	srand(time(NULL));
-
 	std::cout << "===== Shrubbery =====" << std::endl;
-	AForm		*shrub = new ShrubberyCreationForm("home");
-	Bureaucrat	corr("Correcteur", 1);
-	Bureaucrat	me("Lucie", 140);
 
-	corr.executeForm(*shrub);
-	corr.signForm(*shrub);
-	std::cout << *shrub << std::endl;
-	std::cout << corr << std::endl;
-	corr.executeForm(*shrub);
-	me.executeForm(*shrub);
-	delete shrub;
+	AForm		*shrubbery = new ShrubberyCreationForm("home");
+	Bureaucrat	mrDupont("MrDupont", 1);
+	Bureaucrat	mmeMartin("MmeMartin", 140);
+
+	std::cout << mrDupont << std::endl;
+	std::cout << *shrubbery << std::endl;
+	mrDupont.executeForm(*shrubbery);
+	mrDupont.signForm(*shrubbery);
+	std::cout << *shrubbery << std::endl;
+	mrDupont.executeForm(*shrubbery);
+	std::cout << mmeMartin << std::endl;
+	mmeMartin.executeForm(*shrubbery);
+	delete shrubbery;
+	std::cout << std::endl;
 
 
 	std::cout << "===== Robotomy =====" << std::endl;
-	AForm		*robotomy = new RobotomyRequestForm("Correcteur");
-	Bureaucrat	me2("Lucie", 1);
 
-	me2.executeForm(*robotomy);
-	me2.signForm(*robotomy);
-	me2.executeForm(*robotomy);
-	me2.executeForm(*robotomy);
-	me2.executeForm(*robotomy);
-	me2.executeForm(*robotomy);
+	AForm		*robotomy = new RobotomyRequestForm("MrDupont");
+	Bureaucrat	mrRobert("MrRobert", 1);
+
+	std::cout << mrRobert << std::endl;
+	std::cout << *robotomy << std::endl;
+	mrRobert.executeForm(*robotomy);
+	mrRobert.signForm(*robotomy);
+	mrRobert.executeForm(*robotomy);
+	mrRobert.executeForm(*robotomy);
+	mrRobert.executeForm(*robotomy);
+	mrRobert.executeForm(*robotomy);
 	delete robotomy;
+	std::cout << std::endl;
 	
 	
 	std::cout << "===== Presidential Pardon =====" << std::endl;
-	AForm		*presidential = new PresidentialPardonForm("Correcteur");
-	Bureaucrat	me3("Lucie", 6);
 
-	me3.executeForm(*presidential);
-	me3.signForm(*presidential);
-	me3.executeForm(*presidential);
-	me3.upGrade();
-	me3.executeForm(*presidential);
+	AForm		*presidential = new PresidentialPardonForm("MrDupont");
+	Bureaucrat	mmeDurand("MmeDurand", 6);
+
+	std::cout << mmeDurand << std::endl;
+	std::cout << *presidential << std::endl;
+	mmeDurand.executeForm(*presidential);
+	mmeDurand.signForm(*presidential);
+	mmeDurand.executeForm(*presidential);
+	std::cout << mmeDurand.getName() << " gets a promotion!" << std::endl;
+	mmeDurand.upGrade();
+	mmeDurand.executeForm(*presidential);
 	delete presidential;
 
 	return (0);

@@ -1,7 +1,6 @@
 #ifndef ROBOTOMYREQUESTFORM_HPP
 # define ROBOTOMYREQUESTFORM_HPP
-# include <ctime> //USE ?
-# include <cstdlib> //USE ?
+# include <cstdlib>
 # include "AForm.hpp"
 
 class RobotomyRequestForm : public AForm

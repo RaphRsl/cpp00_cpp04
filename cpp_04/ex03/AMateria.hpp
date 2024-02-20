@@ -26,6 +26,6 @@ class AMateria
 		virtual void		use(ICharacter &target);
 };
 
-std::string		overlayPrint(const std::string str, std::string mac, const std::string color, int size = 20); //USE ?
+std::string		overlayPrint(const std::string str, std::string mac, const std::string color, int size = 20);
 
 #endif

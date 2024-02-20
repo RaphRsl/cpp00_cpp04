@@ -8,6 +8,9 @@ class Character : public ICharacter
 		static const int	_inventorySize = 4;
 		AMateria			*_inventory[_inventorySize];
 		std::string			_name;
+		static const int	_maxFloorDrop = 50;
+		AMateria			*_floorDrop[_maxFloorDrop];
+		
 		
 	public:
 		Character(void);
@@ -21,7 +24,7 @@ class Character : public ICharacter
 		void				equip(AMateria *m);
 		void				unequip(int idx);
 		void				use(int idx, ICharacter &target);
-		void				printInventory(void) const; //UTILE ?
+		void				printInventory(void) const;
 };
 
 #endif

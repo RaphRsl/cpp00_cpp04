@@ -5,7 +5,6 @@ MateriaSource::MateriaSource(void)
 	if (VERBOSE)
 		std::cout << overlayPrint("MateriaSource", MAC_CONSTRUCT, LIGHTGREY)  << "constructor called" << std::endl;
 	for (int i = 0; i < _inventorySize; i++)
-		// delete _inventory[i]; //tried to change next line
 		_inventory[i] = NULL;
 }
 

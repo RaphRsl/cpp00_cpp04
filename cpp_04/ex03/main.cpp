@@ -2,12 +2,13 @@
 #include "Ice.hpp"
 #include "Cure.hpp"
 #include "MateriaSource.hpp"
-#include <iomanip> //NEEDED ?
+#include <iomanip>
 
 
 static void testSubject(void)
 {
 	std::cout << "===== TEST FROM SUBJECT =====" << std::endl;
+
 	IMateriaSource* src = new MateriaSource();
 
 	src->learnMateria(new Ice());
@@ -33,37 +34,37 @@ static void testSubject(void)
 static void	testCharacter(void)
 {
 	std::cout << "===== TEST CHARACTER =====" << std::endl;
-	ICharacter	*hero = new Character("Lucie");
-	ICharacter	*enemy = new Character("Correcteur");
+	ICharacter	*student = new Character("Student");
+	ICharacter	*blackhole = new Character("Blackhole");
 	AMateria	*ice = new Ice();
 
-	hero->equip(new Ice());
-	hero->equip(ice);
-	hero->equip(new Cure());
-	hero->equip(new Ice());
-	hero->equip(new Ice());
-	enemy->equip(new Cure());
-	enemy->equip(new Cure());
-	enemy->equip(new Cure());
+	student->equip(new Ice());
+	student->equip(ice);
+	student->equip(new Cure());
+	student->equip(new Ice());
+	student->equip(new Ice());
+	blackhole->equip(new Cure());
+	blackhole->equip(new Cure());
+	blackhole->equip(new Cure());
 
-	hero->printInventory();
-	enemy->printInventory();
+	student->printInventory();
+	blackhole->printInventory();
 
-	hero->use(0, *enemy);
-	hero->use(1, *enemy);
-	hero->use(3, *enemy);
-	enemy->use(2, *hero);
+	student->use(0, *blackhole);
+	student->use(1, *blackhole);
+	student->use(3, *blackhole);
+	blackhole->use(2, *student);
 
-	hero->unequip(1);
-	hero->printInventory();
-	hero->use(1, *enemy);
+	student->unequip(1);
+	student->printInventory();
+	student->use(1, *blackhole);
 
-	hero->equip(new Cure());
-	hero->printInventory();
-	hero->use(1, *enemy);
+	student->equip(new Cure());
+	student->printInventory();
+	student->use(1, *blackhole);
 
-	delete hero;
-	delete enemy;
+	delete student;
+	delete blackhole;
 	delete ice;
 }
 
@@ -71,8 +72,8 @@ static void	testMateriaSource()
 {
 	std::cout << "===== TEST MATERIA SOURCE =====" << std::endl;
 	IMateriaSource	*matSource = new MateriaSource();
-	ICharacter		*hero = new Character("Lucie");
-	ICharacter		*enemy = new Character("Correcteur");
+	ICharacter		*student = new Character("Student");
+	ICharacter		*blackhole = new Character("Blackhole");
 	
 	matSource->learnMateria(new Ice());
 	matSource->learnMateria(new Cure());
@@ -80,21 +81,21 @@ static void	testMateriaSource()
 	matSource->learnMateria(new Cure());
 	matSource->learnMateria(new Cure());
 
-	hero->printInventory();
-	hero->equip(matSource->createMateria("ice"));
-	hero->equip(matSource->createMateria("cure"));
-	hero->equip(matSource->createMateria("cure"));
-	hero->equip(matSource->createMateria("ice"));
-	hero->printInventory();
-	hero->equip(matSource->createMateria("cure"));
-	hero->printInventory();
+	student->printInventory();
+	student->equip(matSource->createMateria("ice"));
+	student->equip(matSource->createMateria("cure"));
+	student->equip(matSource->createMateria("cure"));
+	student->equip(matSource->createMateria("ice"));
+	student->printInventory();
+	student->equip(matSource->createMateria("cure"));
+	student->printInventory();
 
-	hero->use(0, *enemy);
-	hero->use(2, *enemy);
+	student->use(0, *blackhole);
+	student->use(2, *blackhole);
 
 	delete matSource;
-	delete hero;
-	delete enemy;
+	delete student;
+	delete blackhole;
 }
 
 int	main(void)
