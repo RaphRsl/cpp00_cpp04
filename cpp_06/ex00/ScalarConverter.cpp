@@ -1,7 +1,7 @@
 
 #include "ScalarConverter.hpp"
 
-// CONSTRUCTORS - DESTRUCTOR - COPY - OPERATOR "="
+/* --- CONSTRUCTORS - DESTRUCTOR - COPY - OPERATOR "=" --- */
 
 ScalarConverter::ScalarConverter()
 {
@@ -42,55 +42,54 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src)
 	return *this;
 }
 
-// PRIVATE METHODS
+/* --- PRIVATE METHODS --- */
 
+/* CHECKER */
 int	ScalarConverter::checkInput()
 {
-	if (this->getInput().compare("nan") == 0 || this->getInput().compare("+inf") == 0 ||
-		this->getInput().compare("-inf") == 0 || this->getInput().compare("+inff") == 0 ||
-		this->getInput().compare("-inff") == 0)
+/* check if inf or nan */
+	if (this->getInput().compare("nan") == 0 || this->getInput().compare("+inf") == 0 || this->getInput().compare("-inf") == 0 || this->getInput().compare("+inff") == 0 || this->getInput().compare("-inff") == 0)
 	{
 		return (NAN_INF);
 	}
-	else if (this->getInput().length() == 1 &&
-		(this->getInput()[0] == '+' || this->getInput()[0] == '-' || // prevents that the input of single digit integers get interpreted as a char
-		this->getInput()[0] == 'f' || this->getInput()[0] == '.'))
+/* check if just 1 char */
+	else if (this->getInput().length() == 1 && (this->getInput()[0] == '+' || this->getInput()[0] == '-' || this->getInput()[0] == 'f' || this->getInput()[0] == '.'))
 	{
 		return (CHAR);
 	}
-	else if (this->getInput().find_first_of("+-") != this->getInput().find_last_of("+-")) // catches any multiple or mixed use of + and -
+/* check if mix of + and - */
+	else if (this->getInput().find_first_of("+-") != this->getInput().find_last_of("+-"))
 		return (ERROR);
+/* check if only int */
 	else if (this->getInput().find_first_not_of("+-0123456789") == std::string::npos)
 		return (INT);
+/* check if [..] or [x. ] or [.x] or double */
 	else if (this->getInput().find_first_not_of("+-0123456789.") == std::string::npos)
 	{
-		if (this->getInput().find_first_of(".") != this->getInput().find_last_of(".") || // catches `0..0`
-			isdigit(this->getInput()[this->getInput().find_first_of(".") + 1]) == false || // catches `0.`
-			this->getInput().find_first_of(".") == 0) // catches `.0`
+		if (this->getInput().find_first_of(".") != this->getInput().find_last_of(".") || isdigit(this->getInput()[this->getInput().find_first_of(".") + 1]) == false || this->getInput().find_first_of(".") == 0)
 			return (ERROR);
 		else
 			return (DOUBLE);
 	}
+/* check if [ff] or [..] or [x.f] or [.xf] or [x.xfx] or float */
 	else if (this->getInput().find_first_not_of("+-0123456789.f") == std::string::npos)
 	{
-		if (this->getInput().find_first_of("f") != this->getInput().find_last_of("f") || // catches `0.0ff`
-			this->getInput().find_first_of(".") != this->getInput().find_last_of(".") || // catches `0..0f`
-			this->getInput().find_first_of("f") - this->getInput().find_first_of(".") == 1 || //catches `0.f`
-			this->getInput().find_first_of(".") == 0 || // catches `.0f`
-			this->getInput()[this->getInput().find_first_of("f") + 1] != '\0') // catches `0.0f0`
+		if (this->getInput().find_first_of("f") != this->getInput().find_last_of("f") || this->getInput().find_first_of(".") != this->getInput().find_last_of(".") || this->getInput().find_first_of("f") - this->getInput().find_first_of(".") == 1 || this->getInput().find_first_of(".") == 0 || this->getInput()[this->getInput().find_first_of("f") + 1] != '\0')
 			return (ERROR);
 		else
 			return (FLOAT);
 	}
-	else if ((this->getInput().length() == 1 && std::isprint(this->getInput()[0])) ||
-		(this->getInput().length() == 1 && std::isalpha(this->getInput()[0])))
+/* check if 1 char */
+	else if ((this->getInput().length() == 1 && std::isprint(this->getInput()[0])) || (this->getInput().length() == 1 && std::isalpha(this->getInput()[0])))
 	{
 		return (CHAR);
 	}
+/* everything else ERROR */
 	else
 		return (ERROR);
 }
 
+/* CONVERTERS */
 void ScalarConverter::fromChar(void)
 {
 	this->_char = static_cast<unsigned char>(this->getInput()[0]);
@@ -117,9 +116,14 @@ void ScalarConverter::fromDouble(void)
 	this->_float = static_cast<float>(this->getDouble());
 }
 
+/* CONVERTERS CALLER */
 void	ScalarConverter::convertInput(void)
 {
-	void (ScalarConverter::*functionPTRS[])(void) = {&ScalarConverter::fromChar, &ScalarConverter::fromInt, &ScalarConverter::fromFloat, &ScalarConverter::fromDouble};
+	void (ScalarConverter::*func_ptrs[])(void) =\
+		{&ScalarConverter::fromChar,\
+		&ScalarConverter::fromInt,\
+		&ScalarConverter::fromFloat,\
+		&ScalarConverter::fromDouble};
 	int types[] = {CHAR, INT, FLOAT, DOUBLE};
 
 	this->_type = checkInput();
@@ -131,7 +135,7 @@ void	ScalarConverter::convertInput(void)
 	{
 		if (this->getType() == types[i])
 		{
-			(this->*functionPTRS[i])();
+			(this->*func_ptrs[i])();
 			break ;
 		}
 	}
@@ -139,9 +143,10 @@ void	ScalarConverter::convertInput(void)
 		throw ScalarConverter::ErrorException();
 }
 
+/* PRINTER */
 void	ScalarConverter::printOutput(void)const
 {
-	// CHAR
+	/* char */
 	if (this->getType() != NAN_INF && this->getDouble() <= UCHAR_MAX && this->getDouble() >= 0)
 	{
 		if (isprint(this->getChar()))
@@ -152,7 +157,7 @@ void	ScalarConverter::printOutput(void)const
 	else
 		std::cout << "char: impossible" << std::endl;
 
-	// INT
+	/* int */
 	if (this->getType() != NAN_INF && this->getDouble() >= std::numeric_limits<int>::min() && this->getDouble() <= std::numeric_limits<int>::max())
 	{
 		std::cout << "int: " << this->getInt() << std::endl;
@@ -160,7 +165,7 @@ void	ScalarConverter::printOutput(void)const
 	else
 		std::cout << "int: impossible" << std::endl;
 
-	// FLOAT
+	/* float */
 	if (this->getType() != NAN_INF)
 	{
 		std::cout << "float: " << this->getFloat();
@@ -179,7 +184,7 @@ void	ScalarConverter::printOutput(void)const
 			std::cout << "float: -inff" << std::endl;
 	}
 
-	// DOUBLE
+	/* double */
 	if (this->getType() != NAN_INF)
 	{
 		std::cout << "double: " << this->getDouble();
@@ -202,7 +207,7 @@ void	ScalarConverter::printOutput(void)const
 	}
 }
 
-// GETTERS
+/* GETTERS */
 std::string	ScalarConverter::getInput(void)const
 {
 	return (this->_input);
@@ -233,7 +238,7 @@ double ScalarConverter::getDouble(void)const
 	return (this->_double);
 }
 
-// EXCEPTIONS
+/* EXCEPTIONS */
 const char *ScalarConverter::ErrorException::what(void) const throw()
 {
 	return ("Error: The input is impossible to print or not convertable...");
