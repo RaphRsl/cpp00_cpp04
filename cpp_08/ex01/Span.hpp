@@ -1,17 +1,13 @@
-
-// Header-protection
-#pragma once
-
-// Includes
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <exception>
-#include <vector>
-#include <iterator>
-#include <climits>
-
-// classes
+#ifndef SPAN_HPP
+# define SPAN_HPP
+# include <string>
+# include <iostream>
+# include <algorithm>
+# include <exception>
+# include <vector>
+# include <iterator>
+# include <climits>
+# define VERBOSE 0
 
 class Span
 {
@@ -23,19 +19,14 @@ class Span
 		Span();
 
 	public:
-	// Constructors
 		Span(unsigned int N);
 		Span(const Span &src);
-
-	// Deconstructors
 		~Span();
 
-	// Overloaded Operators
 		Span &operator=(const Span &src);
 
-	// Public Methods
 		void addNumber(int number);
-		void addNumber(unsigned int range, time_t seed);
+		void rngAddNumbers(unsigned int totalNB, time_t rngTime);
 		unsigned int shortestSpan()const;
 		unsigned int longestSpan()const;
 
@@ -46,21 +37,23 @@ class Span
 	// Setter
 
 	// Exceptions
-	class	VectorInvalidException : public std::exception
+	class	VectorIssueException : public std::exception
 	{
 		public:
 			virtual const char	*what() const throw();
 	};
 
-	class	ArrayFullException : public std::exception
+	class	NoMorePlaceException : public std::exception
 	{
 		public:
 			virtual const char	*what() const throw();
 	};
 
-	class	ComparisonInvalidException : public std::exception
+	class	CannotCompareException : public std::exception
 	{
 		public:
 			virtual const char	*what() const throw();
 	};
 };
+
+#endif

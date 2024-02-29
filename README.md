@@ -155,3 +155,41 @@ But you can change what `it` points to:
 ```
 
 So, when you see `const_iterator`, it means that the elements of the container are constant with respect to that iterator, not the iterator itself. The iterator can still be moved around.
+
+	============== CPP08 - ex01
+
+		--> VECTOR
+A vector in C++ is a dynamic array that can grow and shrink in size at runtime. It is part of the Standard Template Library (STL). Here's a brief overview of how it works:
+
+1. **Storage**: A vector stores its elements in contiguous memory locations, similar to an array. This allows it to provide fast direct access to its elements.
+
+2. **Dynamic Size**: Unlike an array, a vector can change its size during runtime. When new elements are inserted and the current capacity is not enough, it allocates a larger block of memory, copies the existing elements to the new location, and deallocates the old memory.
+
+3. **Insertion/Deletion**: Elements can be inserted or deleted from any part of the vector using iterators. However, inserting or deleting elements at the end is faster than at the beginning or the middle.
+
+4. **Access**: Elements in a vector can be accessed directly using an index, just like in an array. The `at()`, `front()`, `back()`, and `operator[]` member functions are provided for this purpose.
+
+5. **Other Operations**: Vectors also provide functions to get the size (number of elements) and capacity (total available space), check if it's empty, clear the contents, etc.
+
+Here's a simple example of using a vector in C++:
+
+```cpp
+#include <vector>
+#include <iostream>
+
+int main() {
+    std::vector<int> numbers; // Declare a vector of integers
+
+    numbers.push_back(10); // Add an element at the end
+    numbers.push_back(20);
+    numbers.push_back(30);
+
+    // Access elements
+    std::cout << "First element: " << numbers[0] << std::endl;
+
+    // Get size
+    std::cout << "Size: " << numbers.size() << std::endl;
+
+    return 0;
+}
+```
