@@ -11,19 +11,17 @@ class NotFoundException: public std::exception
 	public:
 			virtual const char *what() const throw()
 			{
-				return ("Not found");
+				return ("\t-> Occurence not found.");
 			}
 };
 
 template< typename T>
-typename T::iterator easyfind(T &in, int i)
+typename T::iterator easyfind(T &intContainer, int i)
 {
 	typename T::iterator	it;
-	it = find(in.begin(), in.end(), i);
-	if (it == in.end())
-	{
+	it = find(intContainer.begin(), intContainer.end(), i);
+	if (it == intContainer.end())
 		throw (NotFoundException());
-	}
 	return (it);
 }
 

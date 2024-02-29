@@ -73,3 +73,85 @@ why using :: before the template functions:
 	This is why you need to use ::min(a, b) and ::max(a, b) for strings, but not
 	for floats. For floats, there is no min and max in the std namespace that takes two floats,
 	so the compiler uses your versions without needing ::.
+
+	============== CPP08 - ex00
+
+	std::list<int>::const_iterator	it = test_list.end();
+		--> FIND
+
+The `find` function is a standard algorithm provided by the C++ Standard Library. It is used to find the first occurrence of a specific value in a range of elements.
+
+Here's a breakdown of the `find` function in your code:
+
+```cpp
+it = find(intContainer.begin(), intContainer.end(), i);
+```
+
+- `intContainer.begin()`: This is an iterator pointing to the start of the container `intContainer`.
+- `intContainer.end()`: This is an iterator pointing to the end of the container `intContainer`. It actually points one past the last element, not the last element itself.
+- `i`: This is the value you are searching for in the container.
+- `find`: This function will iterate over the range [begin, end) and return an iterator to the first element that equals `i`. If no such element is found, it returns the `end` iterator.
+- `it`: This is an iterator where the result of the `find` operation is stored. If `i` is found in `intContainer`, `it` will point to it. If `i` is not found, `it` will be equal to `intContainer.end()`.
+
+In summary, this line of code is searching for the value `i` in the container `intContainer` and storing the result in `it`.
+
+
+		--> initialize "it" at the end
+
+Initializing an iterator to the `end()` of a container is a common practice in C++ when you know you're going to assign a valid value to it before you use it. 
+
+In your case:
+
+```cpp
+std::list<int>::const_iterator it = test_list.end();
+```
+
+Here, `it` is being initialized to `test_list.end()`. This is a safe initialization because `end()` is a valid value for an iterator. 
+
+This is often done for a couple of reasons:
+
+1. **To avoid uninitialized variables:** In C++, local variables are not automatically initialized when they are declared. Using an uninitialized variable can lead to undefined behavior. Initializing `it` to `test_list.end()` ensures that `it` is always in a valid state.
+
+2. **As a sentinel value:** `end()` often serves as a sentinel value indicating that the iterator doesn't point to any valid element in the container. This can be useful in situations where you want to check if the iterator has been assigned a valid position or not.
+
+Remember, even though `it` is initialized to `end()`, you should not dereference `it` until it has been assigned a valid position that points to an actual element in the list.
+
+		--> beginning ok too ?
+Yes, initializing an iterator to the `begin()` of a container is also a common practice in C++. 
+
+```cpp
+std::list<int>::const_iterator it = test_list.begin();
+```
+
+Whether it's better or not depends on the context and what you're planning to do with the iterator.
+
+- If you're going to immediately start iterating over the elements from the beginning, initializing to `begin()` makes sense.
+- If you're going to use the iterator in a search operation (like `std::find`), it doesn't matter whether you initialize to `begin()` or `end()`, because the search operation will assign a new value to the iterator.
+
+Remember, if the list is empty, `begin()` will be equal to `end()`, and you should not dereference the iterator without checking this condition.
+
+==> in our case end is better and safer
+
+		--> why is it a const operator ?
+In C++, a `const_iterator` is an iterator that points to constant content. This means that using a `const_iterator`, you can't change the value of the element it points to. However, you can change what element the iterator points to.
+
+Here's an example:
+
+```cpp
+std::list<int> myList = {1, 2, 3, 4, 5};
+std::list<int>::const_iterator it = myList.begin();
+```
+
+In this case, `it` is a `const_iterator`. You can't use `it` to modify the elements of `myList`:
+
+```cpp
+*it = 10;  // This is not allowed, it would give a compile error
+```
+
+But you can change what `it` points to:
+
+```cpp
+++it;  // This is allowed, it now points to the second element
+```
+
+So, when you see `const_iterator`, it means that the elements of the container are constant with respect to that iterator, not the iterator itself. The iterator can still be moved around.
