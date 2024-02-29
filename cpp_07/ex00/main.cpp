@@ -46,27 +46,3 @@ int	main()
 	string_tests();
 	return (0);
 }
-
-/*
-
-The :: operator is used to specify the global namespace.
-In your case, you have defined min, max, and swap functions in your whatever.hpp file.
-These functions are template functions and can work with any data type.
-
-When you include whatever.hpp in your main file, these functions become part of
-the global namespace. Therefore, when you call min, max, or swap without ::,
-the compiler will use the versions from whatever.hpp.
-
-However, the std namespace also contains min, max, and swap functions.
-When you use std::string, the compiler prefers the min, max, and swap
-functions from the std namespace over the ones in the global namespace.
-This is due to Argument-Dependent Lookup (ADL), a feature in C++ where the compiler
-also considers functions in the namespace of the arguments.
-
-To force the compiler to use your versions of min, max, and swap,
-you need to use the :: operator to specify the global namespace.
-This is why you need to use ::min(a, b) and ::max(a, b) for strings, but not
-for floats. For floats, there is no min and max in the std namespace that takes two floats,
-so the compiler uses your versions without needing ::.
-
-*/
