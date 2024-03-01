@@ -8,17 +8,19 @@
 # include <iterator>
 # include <climits>
 # define VERBOSE 0
+# define PRINTSMALLSTORAGE 1
+# define PRINTBIGSTORAGE 0
 
 class Span
 {
 	private:
 		std::vector<int> _storage;
 		unsigned int _size;
-		unsigned int _pos;
+		unsigned int _currentStorage;
 
-		Span();
 
 	public:
+		Span();
 		Span(unsigned int N);
 		Span(const Span &src);
 		~Span();
@@ -29,14 +31,11 @@ class Span
 		void rngAddNumbers(unsigned int totalNB, time_t rngTime);
 		unsigned int shortestSpan()const;
 		unsigned int longestSpan()const;
+		void printStorage()const;
 
-	// Getter
 		unsigned int getSize()const;
-		unsigned int getPos()const;
+		unsigned int getCurrentStorage()const;
 
-	// Setter
-
-	// Exceptions
 	class	VectorIssueException : public std::exception
 	{
 		public:
@@ -49,7 +48,7 @@ class Span
 			virtual const char	*what() const throw();
 	};
 
-	class	CannotCompareException : public std::exception
+	class	LessThanTwoElementsException : public std::exception
 	{
 		public:
 			virtual const char	*what() const throw();

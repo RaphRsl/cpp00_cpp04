@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rroussel <rroussel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rsl <rsl@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:36:20 by tblaase           #+#    #+#             */
-/*   Updated: 2024/02/29 14:52:11 by rroussel         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:30:14 by rsl              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void test_list(void)
 	
 	std::list<int>::const_iterator	it = testList.end();
 
+	std::cout << "===== Printing my entire list =====" << std::endl;
+	std::cout << "\tList: " << std::flush;
+	for(std::list<int>::const_iterator it = testList.begin(); it != testList.end(); it++)
+	    std::cout << *it << " " << std::flush;
+	std::cout << std::endl;
+	
 	std::cout << "===== Looking for 42 =====" << std::endl;
 	try
 	{
