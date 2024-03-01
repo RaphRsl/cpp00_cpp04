@@ -1,64 +1,101 @@
 
 #include "MutantStack.hpp"
 
-int main()
+void test_from_subject(void)
 {
-	// creation of a string stack
-	MutantStack<std::string> mstack_string;
-	mstack_string.push("Five");
-	mstack_string.push("Seventeen");
-	mstack_string.pop();
-	mstack_string.push("Three");
-	mstack_string.push("Seven hundred thirty-seven");
-
-	// creation of a int stack
 	MutantStack<int> mstack;
-	mstack.push(5);		// addding 5
-	mstack.push(17);	// adding 17
-	mstack.pop();		// deleting 17
-	mstack.push(3);		// adding 3
-	mstack.push(737);	// adding 737
+	mstack.push(5);
+	mstack.push(17);
+	std::cout << mstack.top() << std::endl;
+	mstack.pop();
+	std::cout << mstack.size() << std::endl;
+	mstack.push(3);
+	mstack.push(5);
+	mstack.push(737);
+	//[...]
+	mstack.push(0);
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+	++it;
+	--it;
+	while (it != ite)
+	{
+	std::cout << *it << std::endl;
+	++it;
+	}
+	std::stack<int> s(mstack);
+}
+
+int my_test(void)
+{
+	std::cout << "--> String stack" << std::endl;
+	MutantStack<std::string> str_mstack;
+	str_mstack.push("One");
+	str_mstack.push("Two");
+	str_mstack.pop();
+	str_mstack.push("Three");
+	str_mstack.push("Forty Two");
+
+	std::cout << "--> Int stack" << std::endl;
+	MutantStack<int> int_mstack;
+	int_mstack.push(1);		
+	int_mstack.push(2);	
+	int_mstack.pop();		
+	int_mstack.push(3);		
+	int_mstack.push(42);
 
 	std::cout << std::endl;
 
-	// start working with string stack ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-	MutantStack<std::string>::iterator s_it = mstack_string.begin();
-	MutantStack<std::string>::iterator e_it = mstack_string.end();
-
-	++s_it;
-	--s_it;
-	std::cout << "String Iterator: ";
-	while (s_it != e_it)
+	std::cout << "--> String stack - iterators creation" << std::endl;
+	MutantStack<std::string>::iterator str_it_beg = str_mstack.begin();
+	MutantStack<std::string>::iterator str_it_end = str_mstack.end();
+	++str_it_beg;
+	--str_it_beg;
+	std::cout << "--> String stack iteration:\n";
+	while (str_it_beg != str_it_end)
 	{
-		std::cout << *s_it << ", ";
-		++s_it;
+		std::cout << "\t[" << *str_it_beg << "]\n";
+		++str_it_beg;
 	}
 
-	std::cout << std::endl << std::endl << "↓↓↓ String Stack Information ↓↓↓\nSize: " << mstack_string.size() << "\nEmpty: " << (mstack_string.empty() ? "true" : "false") << std::endl;
-	mstack_string.pop();
-	mstack_string.pop();
-	mstack_string.pop();
-	std::cout << std::endl << std::endl << "↓↓↓ String Stack Information ↓↓↓\nSize: " << mstack_string.size() << "\nEmpty: " << (mstack_string.empty() ? "true" : "false") << std::endl;
-	// end working with string stack ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+	std::cout << "\n\t> Information \n\tSize: " << str_mstack.size() << "\n\tEmpty: " << (str_mstack.empty() ? "true" : "false") << std::endl;
+	std::cout << std::endl << "\n\t(Pop 3 elements from the string stack)" << std::endl;
+	str_mstack.pop();
+	str_mstack.pop();
+	str_mstack.pop();
+	std::cout << "\t> Information \n\tSize: " << str_mstack.size() << "\n\tEmpty: " << (str_mstack.empty() ? "true" : "false") << std::endl;
 
-	std::cout << std::endl << "-------------------------------------------------------------------" << std::endl << std::endl;
+	std::cout << std::endl;
 
-	// start working with int stack ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-	MutantStack<int>::iterator it_s = mstack.begin();
-	MutantStack<int>::iterator it_e = mstack.end();
-
-	++it_s;
-	--it_s;
-
-	std::cout << "Int Iterator: ";
-	while (it_s != it_e)
+	std::cout << "--> Int stack - iterators creation" << std::endl;
+	MutantStack<int>::iterator int_it_beg = int_mstack.begin();
+	MutantStack<int>::iterator int_it_end = int_mstack.end();
+	++int_it_beg;
+	--int_it_beg;
+	std::cout << "--> Int stack iteration:\n";
+	while (int_it_beg != int_it_end)
 	{
-		std::cout << *it_s << "` ";
-		++it_s;
+		std::cout << "\t[" << *int_it_beg << "]\n";
+		++int_it_beg;
 	}
 
-	std::cout << std::endl << std::endl << "↓↓↓ Int Stack Information ↓↓↓\nSize: " << mstack.size() << "\nEmpty: " << (mstack.empty() ? "true" : "false") << std::endl << std::endl;
-	// end working with int stack ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+	std::cout << "\n\t> Information \n\tSize: " << int_mstack.size() << "\n\tEmpty: " << (int_mstack.empty() ? "true" : "false") << std::endl;
+	std::cout << std::endl << "\n\t(Pop 2 elements from the int stack)" << std::endl;
+	int_mstack.pop();
+	int_mstack.pop();
+	std::cout << "\t> Information \n\tSize: " << int_mstack.size() << "\n\tEmpty: " << (int_mstack.empty() ? "true" : "false") << std::endl;
+	std::cout << std::endl;
 
 	return 0;
+}
+
+int	main(void)
+{
+	std::cout << "===== TEST FROM SUBJECT =====" << std::endl;
+	test_from_subject();
+	std::cout << std::endl;
+	std::cout << "===== MY TEST =====" << std::endl;
+	my_test();
+	std::cout << std::endl;
+	return (0);
 }
