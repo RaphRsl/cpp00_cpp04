@@ -193,3 +193,27 @@ int main() {
     return 0;
 }
 ```
+
+	=============== CPP09 ex00
+
+float BitcoinExchange::getMatchingExchRate(const std::string& date)
+{
+    if (this->dataBase.count(date) > 0)
+        return this->dataBase.at(date);
+    return (--this->dataBase.lower_bound(date))->second;
+}
+
+
+This function `getMatchingExchRate` is a member function of the `BitcoinExchange` class. It takes a date as a string and returns the exchange rate for that date as a float.
+
+Here's a detailed breakdown of the second part of the function:
+
+- `this->dataBase.lower_bound(date)`: The `lower_bound` function is a standard library function that works on sorted containers like `std::map`. It returns an iterator pointing to the first element that is not less (i.e., is greater or equal) than the given key `date`. If all keys in the map are less than `date`, it returns an iterator to `end()`.
+
+- `--`: This is the decrement operator. It moves the iterator one step back in the container. So, `--this->dataBase.lower_bound(date)` gives us an iterator pointing to the last element that is less than `date`. This is effectively the most recent date before the given date in the `dataBase`.
+
+- `->second`: This operator is used to access the value of the element pointed to by the iterator. In a `std::map`, each element is a pair, where `first` is the key and `second` is the value. So, `(--this->dataBase.lower_bound(date))->second` gives us the value (i.e., the exchange rate) associated with the most recent date before the given date.
+
+So, if the given date does not exist in the `dataBase`, this function returns the exchange rate for the most recent date before the given date.
+
+Please note that if the `dataBase` is empty or all dates in the `dataBase` are greater than the given date, `--this->dataBase.lower_bound(date)` will result in undefined behavior because it will try to decrement the `begin()` iterator. You might want to add checks to handle these cases.

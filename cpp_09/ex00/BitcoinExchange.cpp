@@ -35,12 +35,19 @@ BitcoinExchange::~BitcoinExchange(void)
 	return ;
 }
 
-//CHECK
 float BitcoinExchange::getMatchingExchRate(const std::string& date)
 {
     if (this->dataBase.count(date) > 0)
+	{
         return this->dataBase.at(date);
-    return (--this->dataBase.lower_bound(date))->second;
+	}
+	std::map<std::string, float>::iterator it = this->dataBase.lower_bound(date);
+    if (it == this->dataBase.begin())
+	{
+        std::cerr << "(Error: No exchange rate available for this date, set to 0) " << std::flush;
+		return (0);
+	}
+    return (--it)->second;
 }
 
 static unsigned int ft_strtouint(const std::string& str)
