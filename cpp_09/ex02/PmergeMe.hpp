@@ -1,7 +1,6 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 # define VERBOSE 0
-# include <exception> //needed ?
 
 class PmergeMe
 {
@@ -12,10 +11,16 @@ class PmergeMe
 
         PmergeMe &operator=(const PmergeMe& pmm);
 
-        void sortVec(int argc, char **argv);
-        void sortList(int argc, char **argv);
+        double vec_sort(int argc, char **argv);
+        double list_sort(int argc, char **argv);
 
         class InvalidElementException : public std::exception
+        {
+            public:
+                virtual const char* what() const throw();  
+        };
+
+        class DoubleElementException : public std::exception
         {
             public:
                 virtual const char* what() const throw();  

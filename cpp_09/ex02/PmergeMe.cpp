@@ -2,10 +2,11 @@
 #include <algorithm>
 #include <ctime>
 #include <vector>
+#include <sstream>
 #include <list>
 #include "PmergeMe.hpp"
-# define MICROSECOND 100000 //needed ?
 
+// ---------- DEFAULT/COPY CONSTRUCTORS - DESTRUCTOR - OPERATOR= ----------
 
 PmergeMe::PmergeMe(void)
 {
@@ -38,187 +39,193 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& pmm)
 	return *this;
 }
 
-unsigned int ft_stou(const std::string& str);
 
-static void printVec(std::vector<unsigned int>& vec)
+// ---------- UTILS ----------
+
+unsigned int ft_str_to_uint(const std::string& str)
 {
-	std::vector<unsigned int>::const_iterator itr;
-	for (itr = vec.begin(); itr != vec.end(); itr++)
-		std::cout << *itr << " ";
+	unsigned int nb;
+	std::stringstream sstream(str);
+
+	sstream >> nb;
+	return nb;
+}
+
+
+// ---------- VECTOR ----------
+
+static void vec_print(std::vector<unsigned int>& vectorSort)
+{
+	std::vector<unsigned int>::const_iterator itVec;
+	for (itVec = vectorSort.begin(); itVec != vectorSort.end(); itVec++)
+		std::cout << *itVec << " ";
 	std::cout << std::endl;
 }
 
-static std::vector<unsigned int> mergeVecs(std::vector<unsigned int>& left, std::vector<unsigned int>& right)
+static std::vector<unsigned int> vec_merge(std::vector<unsigned int>& left, std::vector<unsigned int>& right)
 {
-    std::vector<unsigned int> result;
+    std::vector<unsigned int> vectorSorted;
 
-    // Merge the two vectors until one of them becomes empty
     while (!left.empty() && !right.empty())
 	{
         if (left.front() <= right.front())
 		{
-            result.push_back(left.front());
+            vectorSorted.push_back(left.front());
             left.erase(left.begin());
         }
 		else
 		{
-            result.push_back(right.front());
+            vectorSorted.push_back(right.front());
             right.erase(right.begin());
         }
     }
 
-    // Add any remaining elements from the left vector
     while (!left.empty())
 	{
-        result.push_back(left.front());
+        vectorSorted.push_back(left.front());
         left.erase(left.begin());
     }
 
-    // Add any remaining elements from the right vector
     while (!right.empty())
 	{
-        result.push_back(right.front());
+        vectorSorted.push_back(right.front());
         right.erase(right.begin());
     }
-    return result;
+    return vectorSorted;
 }
 
-static std::vector<unsigned int> mergeInsertVec(std::vector<unsigned int>& vec) {
-    // Base case: a vector with zero or one elements is already sorted
-    if (vec.size() <= 1) {
-        return vec;
-    }
+static std::vector<unsigned int> vec_merge_insert(std::vector<unsigned int>& vectorSort) {
+    if (vectorSort.size() <= 1)
+        return vectorSort;
 
-    // Divide the vector into two halves
-    int mid = vec.size() / 2;
-    std::vector<unsigned int> left(vec.begin(), vec.begin() + mid);
-    std::vector<unsigned int> right(vec.begin() + mid, vec.end());
+    int middle = vectorSort.size() / 2;
+    std::vector<unsigned int> left(vectorSort.begin(), vectorSort.begin() + middle);
+    std::vector<unsigned int> right(vectorSort.begin() + middle, vectorSort.end());
 
-    // Recursively sort the left and right halves
-    left = mergeInsertVec(left);
-    right = mergeInsertVec(right);
+    left = vec_merge_insert(left);
+    right = vec_merge_insert(right);
 
-    // Merge the sorted halves
-    return mergeVecs(left, right);
+    return vec_merge(left, right);
 }
 
-void PmergeMe::sortVec(int argc, char **argv)
+double PmergeMe::vec_sort(int ac, char **av)
 {
-	std::vector<unsigned int> storage;
+	std::vector<unsigned int> vectorSort;
 
-	for (int i = 1; i < argc; i += 1) {
-		storage.push_back(ft_stou(argv[i]));
-	}
+	for (int i = 1; i < ac; i += 1)
+		vectorSort.push_back(ft_str_to_uint(av[i]));
 
-	std::cout << "<vec>Before: ";
-	printVec(storage);
+	std::cout << "<vec>\tBefore: " << std::flush;
+	vec_print(vectorSort);
 
 	std::clock_t start = std::clock();
 
-	storage = mergeInsertVec(storage);
+	vectorSort = vec_merge_insert(vectorSort);
 
-	double time_taken = static_cast<double>(std::clock() - start) / static_cast<double>(CLOCKS_PER_SEC) * MICROSECOND;
+	double usedTime = static_cast<double>(std::clock() - start) / static_cast<double>(CLOCKS_PER_SEC) * 1000000;
 
-	std::cout << "<vec>After: ";
-	printVec(storage);
+	std::cout << "<vec>\tAfter: " << std::flush;
+	vec_print(vectorSort);
 
-	std::cout << "Time to process a range of " << argc - 1
-		 << " elements " << "with std::vector<unsigned int> : " 
-		 << time_taken << " µs" << std::endl;
+	return (usedTime);
 }
 
-static void printList(std::list<unsigned int>& lst)
+
+// ---------- LIST ----------
+
+static void list_print(std::list<unsigned int>& listSort)
 {
-	std::list<unsigned int>::const_iterator itr;
-	for (itr = lst.begin(); itr != lst.end(); itr++)
-		std::cout << *itr << " ";
+	std::list<unsigned int>::const_iterator itList;
+	for (itList = listSort.begin(); itList != listSort.end(); itList++)
+		std::cout << *itList << " ";
 	std::cout << std::endl;
 }
 
-static std::list<unsigned int> mergeLists(std::list<unsigned int>& left, std::list<unsigned int>& right)
+static std::list<unsigned int> list_merge(std::list<unsigned int>& left, std::list<unsigned int>& right)
 {
-    std::list<unsigned int> result;
+    std::list<unsigned int> listSorted;
 
-    // Merge the two vectors until one of them becomes empty
     while (!left.empty() && !right.empty())
 	{
         if (left.front() <= right.front())
 		{
-            result.push_back(left.front());
+            listSorted.push_back(left.front());
             left.erase(left.begin());
         }
 		else
 		{
-            result.push_back(right.front());
+            listSorted.push_back(right.front());
             right.erase(right.begin());
         }
     }
 
-    // Add any remaining elements from the left vector
     while (!left.empty())
 	{
-        result.push_back(left.front());
+        listSorted.push_back(left.front());
         left.erase(left.begin());
     }
 
-    // Add any remaining elements from the right vector
     while (!right.empty())
 	{
-        result.push_back(right.front());
+        listSorted.push_back(right.front());
         right.erase(right.begin());
     }
-    return result;
+    return listSorted;
 }
 
-static std::list<unsigned int> mergeInsertList(std::list<unsigned int>& lst) {
-    // Base case: a list with zero or one elements is already sorted
-    if (lst.size() <= 1) {
-        return lst;
-    }
+static std::list<unsigned int> list_merge_insert(std::list<unsigned int>& listSort) {
+    if (listSort.size() <= 1)
+        return listSort;
 
-    // Divide the list into two halves
-    int mid = lst.size() / 2;
+    int middle = listSort.size() / 2;
 	std::list<unsigned int> left;
 	std::list<unsigned int> right;
 
-    for (int i = 0; i < mid; i++) {
-        left.push_back(lst.front());
-        lst.pop_front();
+    for (int i = 0; i < middle; i++)
+    {
+        left.push_back(listSort.front());
+        listSort.pop_front();
     }
-    right = lst;
+    right = listSort;
 
-    // Recursively sort the left and right halves
-    left = mergeInsertList(left);
-    right = mergeInsertList(right);
+    left = list_merge_insert(left);
+    right = list_merge_insert(right);
 
-    // Merge the sorted halves
-    return mergeLists(left, right);
+    return list_merge(left, right);
 }
 
-void PmergeMe::sortList(int argc, char **argv)
+double PmergeMe::list_sort(int ac, char **av)
 {
-	std::list<unsigned int> storage;
+	std::list<unsigned int> listSort;
 
-	for (int i = 1; i < argc; i += 1)
-		storage.push_back(ft_stou(argv[i]));
+	for (int i = 1; i < ac; i += 1)
+		listSort.push_back(ft_str_to_uint(av[i]));
 
-    std::cout << "<list>Before: ";
-	printList(storage);
+    std::cout << "<list>\tBefore: " << std::flush;
+	list_print(listSort);
 
 	std::clock_t start = std::clock();
 
-	storage = mergeInsertList(storage);
+	listSort = list_merge_insert(listSort);
 
-	double time_taken = static_cast<double>(std::clock() - start) / static_cast<double>(CLOCKS_PER_SEC) * MICROSECOND;
+	double usedTime = static_cast<double>(std::clock() - start) / static_cast<double>(CLOCKS_PER_SEC) * 1000000;
 
-    std::cout << "<list>After: ";
-	printList(storage);
+    std::cout << "<list>\tAfter: " << std::flush;
+	list_print(listSort);
+    std::cout << std::endl;
 
-	std::cout << "Time to process a range of " << argc - 1
-		 << " elements " << "with std::list<unsigned int> : " 
-		 << time_taken << " µs" << std::endl;
+    return (usedTime);
 }
 
-const char*	PmergeMe::InvalidElementException::what() const throw() {
-	return "PmergeMe exception: invalid element";
+
+// ---------- EXCEPTIONS ----------
+
+const char*	PmergeMe::InvalidElementException::what() const throw()
+{
+	return "PmergeMe exception: invalid element in the sequence.";
+}
+
+const char*	PmergeMe::DoubleElementException::what() const throw()
+{
+	return "PmergeMe exception: element twice in the sequence.";
 }
