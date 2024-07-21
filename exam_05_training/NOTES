@@ -1,0 +1,90 @@
+GENERAL NOTES
+- protected
+- ; after class declaration
+- #include <map>
+	module01	-> Warlock.hpp
+	module02	-> SpellBook.hpp
+				-> TargetGenerator.hpp
+- [ASpell*] BUT [*this] : PARTOUT
+- #include <iostream> : Warlock.hpp & ATarget.hpp
+
+- module01 :
+	- Warlock.hpp => include ATarget & ASpell hpps
+	- ASpell.hpp/ATarget.hpp => include "ATarget.hpp"/"ASpell.hpp" + prototype 'class ASpell;' / 'class ATarget;' /!\ IMPORTANT
+		=> besoin pour Dummy & Fwoosh ? surtout pas ? comme on veut ?
+	- Warlock.cpp =>
+		- destructor destroy
+		- learnspell()
+			=> pointeur donc ->
+			=> use clone()
+		- learn = 3, forget = 2, launch = 2.
+
+	- ASpell.hpp / ATarget.hpp
+		void launch(ATarget const & target) const; ==> const at the end
+		void getHitBySpell(ASpell const & spell) const; ==> const at the end
+
+	- ASpell.cpp
+		target.getHitBySpell(*this); ==> *this
+
+	- Dummy / Fwoosh : pas de private attributs
+		=> clone()
+			ASpell* Fwoosh::clone(void) const
+				return (new Fwoosh());  ==> /!\ IMPORTANT: [return (new XXX());]
+
+- module02 :
+	- Swoosh =copy=> Fireball/polymorph
+	- Dummy =copy=> BrickWall
+	
+	- SpellBook
+		=> STD::string à rajouter !
+		=> ne pas oublier la map !
+	
+	- Warlock.hpp
+		ONLY CHANGE : remplacer MAP par [SpellBook _spellBook;]
+	- Warlock.cpp
+		ONLY CHANGE : 
+			LEARN:	_spellBook.learnSpell(spell);
+			FORGET:	_spellBook.forgetSpell(spellName);
+
+
+
+
+===
+WARLOCK.HPP
+	void learnSpell(ASpell* spell);
+	void forgetSpell(std::string spellName);
+	void launchSpell(std::string spellName, ATarget const & target);
+	
+WARLOCK.CPP
+========LEARNSPELL
+		void Warlock::learnSpell(ASpell* spell)
+		{
+			if (spell)
+				if(_sellBook.find(spell->getName()) == _spellBook.end())
+					_spellBook[spell->getName()] = spell->clone();
+		}
+	
+========FORGETSPELL
+		void Warlock::forgetSpell(std::string spellName)
+		{
+			if(_spellBook.find(spellName) != _spellBook.end())
+				_spellBook.erase(_spellBook.find(spellName));
+		}
+
+========LAUNCHSPELL
+		void Warlock::launchSpell(std::string spellName, ATarget & target)		
+		{
+			if(_spellBook.find(spellName) != _spellBook.end())
+				_spellBook[spellName]->launch(target);
+		}
+
+========WARLOCK::~WARLOCK()
+		Warlock::~Warlock()
+		{
+			std::cout ...
+			for(std::map<std::string, ASpell*>::iterator it = _spellBook.begin() ; it != _spellBook.end(); ++it)
+			{
+				delete it->second;
+			}
+			_spellBook.clear();
+		}
