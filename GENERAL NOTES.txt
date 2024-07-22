@@ -7,6 +7,9 @@ GENERAL NOTES
 			-> TargetGenerator.hpp
 - [ASpell*] BUT [*this] : PARTOUT
 - #include <iostream> : Warlock.hpp & ATarget.hpp
+- #pragma once :
+	= module_01 => ASpell / ATarget / Fwoosh / Dummy
+	= module_02 => ASpell / ATarget / Fwoosh / Dummy / BrickWall / Fireball / Polymorph / SpellBook / TargetGenerator
 
 ===========================
 
@@ -110,9 +113,10 @@ WARLOCK.CPP
 - Warlock.hpp
 	- ONLY CHANGE : remplacer MAP par [SpellBook _spellBook;]
 - Warlock.cpp
-	ONLY CHANGE : 
-		LEARN:	_spellBook.learnSpell(spell);
-		FORGET:	_spellBook.forgetSpell(spellName);
+	ONLY CHANGE :
+	- ~Warlock ne destoy plus !
+	=> LEARN:	_spellBook.learnSpell(spell);
+	=> FORGET:	_spellBook.forgetSpell(spellName);
 
 
 ======== SpellBook::~SpellBook()
