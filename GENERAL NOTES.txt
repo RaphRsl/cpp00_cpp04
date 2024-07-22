@@ -1,35 +1,16 @@
 GENERAL NOTES
-- protected
+- protected x 2
 - ; after class declaration
 - #include <map>
 	module01	-> Warlock.hpp
 	module02	-> SpellBook.hpp
-				-> TargetGenerator.hpp
+			-> TargetGenerator.hpp
 - [ASpell*] BUT [*this] : PARTOUT
 - #include <iostream> : Warlock.hpp & ATarget.hpp
 
-- module01 :
-	- Warlock.hpp => include ATarget & ASpell hpps
-	- ASpell.hpp/ATarget.hpp => include "ATarget.hpp"/"ASpell.hpp" + prototype 'class ASpell;' / 'class ATarget;' /!\ IMPORTANT
-		=> besoin pour Dummy & Fwoosh ? surtout pas ? comme on veut ?
-	- Warlock.cpp =>
-		- destructor destroy
-		- learnspell()
-			=> pointeur donc ->
-			=> use clone()
-		- learn = 3, forget = 2, launch = 2.
+===========================
 
-	- ASpell.hpp / ATarget.hpp
-		void launch(ATarget const & target) const; ==> const at the end
-		void getHitBySpell(ASpell const & spell) const; ==> const at the end
 
-	- ASpell.cpp
-		target.getHitBySpell(*this); ==> *this
-
-	- Dummy / Fwoosh : pas de private attributs
-		=> clone()
-			ASpell* Fwoosh::clone(void) const
-				return (new Fwoosh());  ==> /!\ IMPORTANT: [return (new XXX());]
 
 - module02 :
 	- Swoosh =copy=> Fireball/polymorph
@@ -48,14 +29,40 @@ GENERAL NOTES
 
 
 
+===========================
+======== MODULE 01 ========
+===========================
 
-===
+ASpell.hpp
+	- include ATarget.hpp
+	- [class ATarget;]
+	- void launch(ATarget const & target) const; ==> const at the end
+ASpell.cpp
+	- target.getHitBySpell(*this); ==> *this
+
+ATarget.hpp
+	- include ASpell.hpp
+	- [class ASpell;]
+	- void getHitBySpell(ASpell const & spell) const; ==> const at the end
+
+Fwoosh / Dummy
+	- pas de private attributs
+	- ASpell*/ATarget* clone() const ==> return (new Fwoosh()/Dummy());
 WARLOCK.HPP
+	- include
+		- <map>
+		- ASpell.hpp
 	void learnSpell(ASpell* spell);
 	void forgetSpell(std::string spellName);
 	void launchSpell(std::string spellName, ATarget const & target);
 	
 WARLOCK.CPP
+	- destructor destroys
+		- delete it->second;
+		- _spellBook.clear();
+	- learnSpell
+		- USE CLONE()
+		- pointeur donc ->
 ========LEARNSPELL
 		void Warlock::learnSpell(ASpell* spell)
 		{
@@ -88,3 +95,8 @@ WARLOCK.CPP
 			}
 			_spellBook.clear();
 		}
+
+===========================
+======== MODULE 02 ========
+===========================
+
