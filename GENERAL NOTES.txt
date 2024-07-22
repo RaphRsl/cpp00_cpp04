@@ -101,15 +101,26 @@ WARLOCK.CPP
 ===========================
 
 - Swoosh =copy=> Fireball/polymorph
-	- Dummy =copy=> BrickWall
+- Dummy =copy=> BrickWall
 	
-	- SpellBook
-		=> STD::string à rajouter !
-		=> ne pas oublier la map !
+- SpellBook
+	=> STD::string à rajouter !
+	=> ne pas oublier la map !
 	
-	- Warlock.hpp
-		ONLY CHANGE : remplacer MAP par [SpellBook _spellBook;]
-	- Warlock.cpp
-		ONLY CHANGE : 
-			LEARN:	_spellBook.learnSpell(spell);
-			FORGET:	_spellBook.forgetSpell(spellName);
+- Warlock.hpp
+	- ONLY CHANGE : remplacer MAP par [SpellBook _spellBook;]
+- Warlock.cpp
+	ONLY CHANGE : 
+		LEARN:	_spellBook.learnSpell(spell);
+		FORGET:	_spellBook.forgetSpell(spellName);
+
+
+======== SpellBook::~SpellBook()
+{
+	for(std::map<std::string, ASpell*>::iterator it = _spellBook.begin() ; it != _spellBook.end() ; ++it)
+	{
+		delete it->second;
+	}
+	_spellBook.clear();
+}
+
