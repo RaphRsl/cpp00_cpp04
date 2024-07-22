@@ -1,5 +1,5 @@
 GENERAL NOTES
-- protected
+- protected (ASpell & ATarget)
 - ; after class declaration
 - #include <map>
 	module01	-> Warlock.hpp
@@ -7,10 +7,13 @@ GENERAL NOTES
 				-> TargetGenerator.hpp
 - [ASpell*] BUT [*this] : PARTOUT
 - #include <iostream> : Warlock.hpp & ATarget.hpp
+- [delete it->second] + [_xxx.clear();]
+     module_01: ~Warlock
+     module_02: ~SpellBook + SpellBook::forgetSpell
 
 - module01 :
 	- Warlock.hpp => include ATarget & ASpell hpps
-	- ASpell.hpp/ATarget.hpp => include "ATarget.hpp"/"ASpell.hpp" + prototype 'class ASpell;' / 'class ATarget;' /!\ IMPORTANT
+	- ASpell.hpp/ATarget.hpp => include "ATarget.hpp"/"ASpell.hpp" + prototype 'class ASpell;' / 'class ATarget;' /!\ IMPORTANT (just for ASpell & ATarget)
 		=> besoin pour Dummy & Fwoosh ? surtout pas ? comme on veut ?
 	- Warlock.cpp =>
 		- destructor destroy
