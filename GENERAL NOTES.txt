@@ -1,3 +1,6 @@
+module :	00	/	 01	/	02
+temps :		15 min	/	1h	/	1H30
+
 GENERAL NOTES
 - protected x 2
 - ; after class declaration
