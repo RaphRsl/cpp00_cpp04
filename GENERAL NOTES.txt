@@ -100,3 +100,16 @@ WARLOCK.CPP
 ======== MODULE 02 ========
 ===========================
 
+- Swoosh =copy=> Fireball/polymorph
+	- Dummy =copy=> BrickWall
+	
+	- SpellBook
+		=> STD::string à rajouter !
+		=> ne pas oublier la map !
+	
+	- Warlock.hpp
+		ONLY CHANGE : remplacer MAP par [SpellBook _spellBook;]
+	- Warlock.cpp
+		ONLY CHANGE : 
+			LEARN:	_spellBook.learnSpell(spell);
+			FORGET:	_spellBook.forgetSpell(spellName);
