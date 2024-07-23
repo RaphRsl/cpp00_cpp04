@@ -1,7 +1,9 @@
 module :	00	/	 01	/	02
 temps :		15 min	/	1h	/	1H30
 
-GENERAL NOTES
+===========================
+====== GENERAL NOTES ======
+===========================
 - protected x 2
 - ; after class declaration
 - #include <map>
@@ -13,26 +15,6 @@ GENERAL NOTES
 - #pragma once :
 	= module_01 => ASpell / ATarget / Fwoosh / Dummy
 	= module_02 => ASpell / ATarget / Fwoosh / Dummy / BrickWall / Fireball / Polymorph / SpellBook / TargetGenerator
-
-===========================
-
-
-
-- module02 :
-	- Swoosh =copy=> Fireball/polymorph
-	- Dummy =copy=> BrickWall
-	
-	- SpellBook
-		=> STD::string à rajouter !
-		=> ne pas oublier la map !
-	
-	- Warlock.hpp
-		ONLY CHANGE : remplacer MAP par [SpellBook _spellBook;]
-	- Warlock.cpp
-		ONLY CHANGE : 
-			LEARN:	_spellBook.learnSpell(spell);
-			FORGET:	_spellBook.forgetSpell(spellName);
-
 
 
 ===========================
