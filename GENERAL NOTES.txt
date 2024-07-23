@@ -36,6 +36,7 @@ ATarget.hpp
 Fwoosh / Dummy
 	- pas de private attributs
 	- ASpell*/ATarget* clone() const ==> return (new Fwoosh()/Dummy());
+
 WARLOCK.HPP
 	- include
 		- <map>
@@ -51,6 +52,7 @@ WARLOCK.CPP
 	- learnSpell
 		- USE CLONE()
 		- pointeur donc ->
+
 ========LEARNSPELL
 		void Warlock::learnSpell(ASpell* spell)
 		{
@@ -103,7 +105,6 @@ WARLOCK.CPP
 	=> LEARN:	_spellBook.learnSpell(spell);
 	=> FORGET:	_spellBook.forgetSpell(spellName);
 
-
 ======== SpellBook::~SpellBook()
 {
 	for(std::map<std::string, ASpell*>::iterator it = _spellBook.begin() ; it != _spellBook.end() ; ++it)
@@ -113,13 +114,11 @@ WARLOCK.CPP
 	_spellBook.clear();
 }
 
-
 ======== void SpellBook::learnSpell(ASpell* spell)
 {
 	if(spell)
 		_spellBook[spell->getName()] = spell->clone();
 }
-
 
 ======== void SpellBook::forgetSpell(std::string const & spellName)
 {
@@ -130,7 +129,6 @@ WARLOCK.CPP
 		_spellBook.erase(it);
 	}
 }
-
 
 ======== ASpell* SpellBook::createSpell(std::string const & spellName)
 {
